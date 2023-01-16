@@ -1,22 +1,24 @@
-package org.hatmani.topology;
+package org.hatmani;
 
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
-import org.apache.kafka.streams.Topology;
+import org.hatmani.Utils.Sentiments.MockSentimentsServices;
+import org.hatmani.Utils.Transalation.MockTranslationService;
+import org.hatmani.topology.TwitterTopology;
 
-import java.util.Properties;
+import static org.hatmani.Configurations.StreamConfiguration.createTopologyConfig;
 
-public class TwitTopology {
+public class App {
     //private static Object KAFKA_BROKER_URL;
    // private String KAFKA_BROKER_URL = " mbp-de-mac:9092";
     public static void main(String[] args) {
+
        // StreamsBuilder streamsBuilder = new StreamsBuilder();
-        Topology topology = CryptoTopology.build();
-        Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "dev");
-        config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "mbp-de-mac:9092");
-        KafkaStreams streams = new KafkaStreams(topology, config);
+       //  Topology topology = TwitterTopology.build();
+
+        TwitterTopology twitterTopology = new TwitterTopology(new MockTranslationService(),new MockSentimentsServices() );
+
+
+        KafkaStreams streams = new KafkaStreams(twitterTopology.createTopology(), createTopologyConfig());
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
         System.out.println("Starting Twitter streams");
         streams.start();

@@ -1,3 +1,47 @@
+
+#Serialization/Deserialization
+Kafka est byte-in byte-out ce pour cela kafka stream doit serialize et deserialiser les donne
+in kafka stream serialization et deserialization est offert par le class Serdes qui possede :
+```sh
+Data       type Serdes class
+byte[]     Serdes.ByteArray(), Serdes.Bytes()
+ByteBuffer Serdes.ByteBuffer()
+Double     Serdes.Double()
+Integer    Serdes.Integer()
+Long       Serdes.Long()
+String     Serdes.String()
+UUID       Serdes.UUID()
+Void       Serdes.Void()
+```
+puisque les donne de twitter sont represent sous la forme JSON on doit ecrire notre propre serialization d'ou on peut le convertir on Serdes.String(), string mais le traitement de stream sera difficile
+puisque le format est le standard json on est pas oblige de recree un bas niveau de serialization ou on peut user les bib java pr la serialisation et la deserialisation de json alors on va utiliser la bib Gson pour la conversion json<-->java
+alors on va cree notre custom Serdes :1-creation de model puis creation de tweetSerialize et TweetDeserializer et finalement creation de TweetSerdes
+ #Filtring
+ si l'application contient un filtre on doit le faire on priorite 
+ DSL’s filter operator
+```sh
+filter   filterNot
+```
+#Branching Data (Separation)
+on l'utilise on cas de routing de stream a plusieurs strem ou topics
+ici on a deux cas une pour les teweet en anglais et les tweets en autre langue
+#Translating Tweets
+```sh
+• map
+• mapValues
+```
+
+
+Adecco IT
+Michael Page Technology
+Hays Information Technology
+Robert Half Technology
+Capgemini Invent
+Accenture Technology
+HCL Technologies
+Alten
+CGI
+Deloitte Technology
 # About
 This code corresponds with Chapter 3 in the upcoming O'Reilly book: [Mastering Kafka Streams and ksqlDB][book] by Mitch Seymour. This tutorial covers **Stateless processing** in Kafka Streams. Here, we demonstrate many stateless operators in Kafka Streams' high-level DSL by building an application that transforms and enriches tweets about various cryptocurrencies.
 

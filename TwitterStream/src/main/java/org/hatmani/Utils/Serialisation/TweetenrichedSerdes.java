@@ -4,15 +4,16 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 import org.hatmani.Models.Tweet;
+import org.hatmani.Models.Tweetenriched;
 
-public class TweetSerdes implements Serde<Tweet> {
+public class TweetenrichedSerdes implements Serde<Tweetenriched> {
     @Override
-    public Serializer<Tweet> serializer() {
-        return  new TweetSerializer();
+    public Serializer<Tweetenriched> serializer() {
+        return  new TweetenrichedSerializer();
     }
 
     @Override
-    public Deserializer<Tweet> deserializer() {
-        return new TweetDeserializer();
+    public Deserializer<Tweetenriched> deserializer() {
+        return new TweetenrichedDeserializer();
     }
 }
